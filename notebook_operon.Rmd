@@ -1,3 +1,196 @@
 ---
-title: Notebook operon
+title: "Notebook Operon"
+output: html_document
 ---
+
+```{r, include=FALSE} 
+#Librerias a utilizar
+library(regutools)
+library(ghql)
+library(jsonlite)
+library(dplyr)
+library(httr)
+library(tidyr)
+library(ggplot2)
+library(shiny)
+library(DT)
+library(knitr)
+library(kableExtra)
+library(htmltools)
+library(htmlwidgets)
+library(shinyjs)
+library(rmarkdown)
+```
+```{r, include=FALSE}
+regulondb_conn <- connect_database()
+
+#genes by operon
+get_genes_by_operons <- get_genes_by_operons()
+
+get_general_frequency_genes <- get_general_frequency(get_genes_by_operons,data.getAllOperon.data.operon$name,cantidad,n_operon)
+
+generate_graphic_points_by_genes <- generate_graphic_points(get_general_frequency_genes,cantidad,n_operon,"genes by operon","operon frequency","Genes by operon")
+
+#promoters by operon
+get_promoters_by_operons <- get_promoters_by_operons()
+
+get_general_frequency_promoters <- get_general_frequency(get_promoters_by_operons,data.getAllOperon.data.operon$name,cantidad,n_operon)
+
+generate_graphic_bar_by_promoters <- generate_graphic_bar(get_general_frequency_promoters,cantidad,n_operon,x_axis_title="promoters by operon",y_axis_title="operon frequency",plot_title="Promoters by operon")
+
+#tfs by operon
+get_tfs_by_operons <- get_tfs_by_operons()
+
+get_general_frequency_tfs <- get_general_frequency(get_tfs_by_operons,data.getAllOperon.data.operon$name,cantidad,n_operon)
+
+generate_graphic_bar_by_tfs <- generate_graphic_bar(get_general_frequency_tfs,cantidad,n_operon,x_axis_title="TUs by operon",y_axis_title="operon frequency",plot_title="Transcription Units by operon")
+
+#tus by operon
+get_tus_by_operons <- get_tus_by_operons()
+
+get_general_frequency_tus <- get_general_frequency(get_tus_by_operons,data.getAllOperon.data.operon$name,cantidad,n_operon)
+
+generate_graphic_bar_by_tus <- generate_graphic_bar(get_general_frequency_tus,cantidad,n_operon,x_axis_title="TUs by operon",y_axis_title="operon frequency",plot_title="Transcription Units by operon")
+
+#sigmafactor by operon
+get_sigmafactor_by_operons <- get_sigmafactor_by_operons()
+
+get_general_frequency_sigmafactor <- get_general_frequency(get_sigmafactor_by_operons,data.getAllOperon.data.operon$name,cantidad,n_operon)
+
+generate_graphic_bar_by_sigmafactor <- generate_graphic_bar(get_general_frequency_sigmafactor,cantidad,n_operon,x_axis_title="Sigmafactor by operon",y_axis_title="operon frequency",plot_title="SigmaFactors by operon")
+
+#ri by operon
+get_ri_by_operons <- get_ri_by_operons()
+
+get_general_frequency_ri <- get_general_frequency(get_ri_by_operons,data.getAllOperon.data.operon$name,cantidad,n_operon)
+
+generate_graphic_bar_by_ri <- generate_graphic_bar(get_general_frequency_ri,cantidad,n_operon,x_axis_title="RIs by operon",y_axis_title="operon frequency",plot_title="Regulatory Interactions by operon")
+```
+
+
+## Introduction
+##### Operon: **(Link de la definicion validado por el curador)**
+##### Transcription Unit: **(Link de la definicion validado por el curador)**
+##### Promoter: **(Link de la definicion validado por el curador)**
+##### Terminator: **(Link de la definicion validado por el curador)**
+
+## Examples
+#### **The most regulated operons**
+###### **(Descripcion dada por el curador de acuerdo al ejemplo)**
+```{r, echo=FALSE, warning=FALSE}
+  print(top5_operons_with_more_tfs())
+```
+###### *Boton descargar tabla*
+###### **Titulo de imagen dado por el curador**
+![](https://regulondb.ccg.unam.mx/search/operon/images/op_tu/ECK125134698_OP.jpg)
+
+###### **Pie de imagen dado por el curador**
+
+#### **Operons with more ri**
+###### **(Descripcion dada por el curador de acuerdo al ejemplo)**
+```{r, echo=FALSE, warning=FALSE}
+  print(top5_operons_with_more_ri())
+```
+###### *Boton descargar tabla*
+###### **Titulo de imagen dado por el curador**
+![](https://regulondb.ccg.unam.mx/search/operon/images/op_tu/ECK120028518_OP.jpg)
+
+###### **Pie de imagen dado por el curador**
+
+#### **Operons with the largest number of genes**
+###### **(Descripcion dada por el curador de acuerdo al ejemplo)**
+```{r, echo=FALSE, warning=FALSE}
+  print(top5_operons_with_more_genes())
+```
+###### *Boton descargar tabla*
+###### **Titulo de imagen dado por el curador**
+![](https://regulondb.ccg.unam.mx/search/operon/images/op_tu/ECK125108694_OP.jpg)
+
+###### **Pie de imagen dado por el curador**
+
+#### **Operons with more TUs**
+###### **(Descripcion dada por el curador de acuerdo al ejemplo)**
+```{r, echo=FALSE, warning=FALSE}
+  print(top5_operons_with_more_tus())
+```
+###### *Boton descargar tabla*
+###### **Titulo de imagen dado por el curador**
+![](https://regulondb.ccg.unam.mx/search/operon/images/op_tu/ECK120014842_OP.jpg)
+
+###### **Pie de imagen dado por el curador**
+
+#### **Operons with more promoter**
+###### **(Descripcion dada por el curador de acuerdo al ejemplo)**
+```{r, echo=FALSE, warning=FALSE}
+  print(top5_operons_with_more_promoters())
+```
+###### *Boton descargar tabla*
+###### **Titulo de imagen dado por el curador**
+![](https://regulondb.ccg.unam.mx/search/operon/images/op_tu/ECK120014842_OP.jpg)
+
+###### **Pie de imagen dado por el curador**
+
+## Operon
+#### **Number of genes by operon**
+###### **Descripcion suscrita por el curador**
+```{r,warning=FALSE, echo=FALSE}
+get_genes_by_operons
+get_general_frequency_genes
+generate_graphic_points_by_genes
+```
+
+###### **Pie de grafica suscrita por el curador**
+
+#### **Number of promoters by operon**
+###### **Descripcion suscrita por el curador**
+```{r, warning=FALSE, echo=FALSE}
+get_promoters_by_operons
+get_general_frequency_promoters
+generate_graphic_bar_by_promoters
+```
+
+###### **Pie de grafica suscrita por el curador**
+
+#### **Number of tfs by operon**
+###### **Descripcion suscrita por el curador**
+```{r, warning=FALSE, echo=FALSE}
+get_tfs_by_operons
+get_general_frequency_tfs
+generate_graphic_bar_by_tfs
+```
+
+###### **Pie de grafica suscrita por el curador**
+
+#### **Number of TUs by operon**
+###### **Descripcion suscrita por el curador**
+```{r, warning=FALSE, echo=FALSE}
+get_tus_by_operons
+get_general_frequency_tus
+generate_graphic_bar_by_tus
+```
+
+###### **Pie de grafica suscrita por el curador**
+
+#### **Number of sigmafactor by operon**
+###### **Descripcion suscrita por el curador**
+```{r, warning=FALSE, echo=FALSE}
+get_sigmafactor_by_operons
+get_general_frequency_sigmafactor
+generate_graphic_bar_by_sigmafactor
+```
+
+###### **Pie de grafica suscrita por el curador**
+
+#### **Number of ri by operon**
+###### **Descripcion suscrita por el curador**
+```{r, warning=FALSE, echo=FALSE}
+get_ri_by_operons
+get_general_frequency_ri
+generate_graphic_bar_by_ri
+```
+
+###### **Pie de grafica suscrita por el curador**
+
+#### **Distribution of distances between genes in an operon**
+###### **Descripcion suscrita por el curador**
+###### **Pie de grafica suscrita por el curador**
