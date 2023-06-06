@@ -1,3 +1,94 @@
+
 ---
-title: Notebook Transcription Factor
+title: "Notebook Transcription Factors"
+output: 
+  html_document
+    
+
 ---
+```{r, include = FALSE}
+library(regutools)
+library(ghql)
+library(jsonlite)
+library(dplyr)
+library(httr)
+library(tidyr)
+library(ggplot2)
+library(DT)
+library(knitr)
+library(htmltools)
+library(htmlwidgets)
+library(shinyjs)
+library(rmarkdown)
+library(data.table)
+library(cleanrmd)
+
+```
+
+```{r, include = FALSE}
+###connection
+regulondb_conn <- connect_database()
+
+###genes by tf
+get_genes_by_tf <- get_genes_by_tf()
+get_general_frequency_genes_by_tf <- get_general_frequency(get_genes_by_tf,data.getAllRegulon.data.transcriptionFactor$name, cantidad,n_tf)
+generate_graphic_points_genes_by_tfs <- generate_graphic_points(get_general_frequency_genes_by_tf,	n_tf, cantidad, "Number regulated genes ", "Number of tf","Number of genes regulated by tf")
+
+###tus by tf
+
+get_tus_by_tfs <- get_tus_by_tfs()
+get_general_frequency_tus_by_tfs <- get_general_frequency(get_tus_by_tfs,name, cantidad,n_tus)
+ generate_graphic_points_tus_by_tfs <- generate_graphic_points(get_general_frequency_tus_by_tfs,cantidad,n_tus ,"numbers tf ", "numbers tus","Number of tus regulated by tf ")
+
+```
+
+
+## Introduction
+##### **introduccion proporcionada por el curador**
+
+## Examples
+**pendientes a  la bd**
+** imagenes o links para cada ejemplo proporcionado por el curador**
+#### Holo Suppressor
+#### apo repressor
+#### Holo trigger
+#### apo activator
+
+##  transcription factor
+
+#### **How many genes are regulated by each TF? / No of genes regulated by TF (graph)**
+```{r, warning = FALSE, echo = FALSE}
+
+get_genes_by_tf
+get_general_frequency_genes_by_tf
+generate_graphic_points_genes_by_tfs
+```
+
+###### **pie de grafica proporcionada por el curador** 
+
+
+####  **How many genes are regulated by each TF organized by family? / No of TF-regulated genes grouped by family (graph)**
+
+####  **How many are regulated by each TF? / No of Tus regulated by TF (graph)**
+```{r, warning = FALSE, echo = FALSE}
+get_tus_by_tfs
+get_general_frequency_tus_by_tfs 
+generate_graphic_points_tus_by_tfs
+```
+
+###### pie de grafica proporcionada por el curador** 
+
+
+####  **What is the number of tfrs per tf ?(graphs)**
+
+####  **What is the size distribution of the TFRs? (Graph )**
+
+####  **Distribution of distances from the center of the TFBSs to the promoter and to the beginning of the first gene: activators, and repressors (only for RIs tf-promoter)**
+
+####  **Distribution of distances of the TFBSs to the gene: activators, and repressors (tf-promoter, tf-tu, tf-gene)**
+
+####  **Distribution of distances of TFBSs to the gene by TF: activators, and repressors**
+
+####  **What is the number of RIs of each type: TF-promoter, TF-TU, TF-gene and their confidence level? (Graph and Table)**
+
+####  **How is the distribution No of Regulators and RIs by TU/promoter/genes (activators, repressors)?(Graphic)**
