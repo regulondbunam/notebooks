@@ -1,50 +1,65 @@
 
 ---
 title: "Notebook Transcription Factors"
-output: 
-  html_document
-    
-
+output:
+  cleanrmd::html_document_clean:
+    theme: almond
+    css: css/headings.css
+    lib_dir: R
 ---
+
 ```{r, include = FALSE}
-library(regutools)
+library(tidyverse)
+library(cleanrmd)
 library(ghql)
 library(jsonlite)
 library(dplyr)
 library(httr)
 library(tidyr)
 library(ggplot2)
+library(shiny)
 library(DT)
 library(knitr)
+library(kableExtra)
 library(htmltools)
 library(htmlwidgets)
 library(shinyjs)
 library(rmarkdown)
-library(data.table)
-library(cleanrmd)
+```
+
+
+```{r , include = FALSE}
+# Obtener la lista de archivos .R en la carpeta "libs"
+archivos <- list.files("R", pattern = "\\.R$", full.names = TRUE)
+
+# Cargar las funciones de cada archivo
+lapply(archivos,source)
+
 
 ```
 
+
 ```{r, include = FALSE}
+
 ###connection
 regulondb_conn <- connect_database()
 
 ###genes by tf
 get_genes_by_tf <- get_genes_by_tf()
-get_general_frequency_genes_by_tf <- get_general_frequency(get_genes_by_tf,data.getAllRegulon.data.transcriptionFactor$name, cantidad,n_tf)
-generate_graphic_points_genes_by_tfs <- generate_graphic_points(get_general_frequency_genes_by_tf,	n_tf, cantidad, "Number regulated genes ", "Number of tf","Number of genes regulated by tf")
+get_general_frequency_genes_by_tfs <- get_general_frequency(get_genes_by_tf, trascriptionFactor_name, genes_name, cantidad, name)
+
 
 ###tus by tf
-
 get_tus_by_tfs <- get_tus_by_tfs()
-get_general_frequency_tus_by_tfs <- get_general_frequency(get_tus_by_tfs,name, cantidad,n_tus)
- generate_graphic_points_tus_by_tfs <- generate_graphic_points(get_general_frequency_tus_by_tfs,cantidad,n_tus ,"numbers tf ", "numbers tus","Number of tus regulated by tf ")
+get_general_frequency_tus_by_tfs <- get_general_frequency(get_tus_by_tfs, trascriptionFactor_name, transcriptionUnits_name ,cantidad,n_tus)
 
 ```
 
 
-## Introduction
-##### **introduccion proporcionada por el curador**
+
+## **Introduction**
+“The complex biology of transcriptional regulation only can be deciphered by studying modularly their components, and then integrating all the knowledge to characterize the transcriptional regulatory network (TRN). 
+Regulons are one type of module within the larger TRN, each single regulon is controlled by a transcription factor through activating or repressing regulatory interactions (RIs) over their target genes. In this notebook is summarized the current knowledge of regulons from E. coli K12.  Here, user can see the general distribution of the data i.e. the number or genes regulated, the size of the TF regulatory sites (TFRSs), the distance between TFRSs and their target promoters or genes. Moreover, here is show the analysis of the confidence level of the RIs."
 
 ## Examples
 **pendientes a  la bd**
@@ -54,29 +69,36 @@ get_general_frequency_tus_by_tfs <- get_general_frequency(get_tus_by_tfs,name, c
 #### Holo trigger
 #### apo activator
 
-##  transcription factor
+##  **Transcription Factor**
 
 #### **How many genes are regulated by each TF? / No of genes regulated by TF (graph)**
 ```{r, warning = FALSE, echo = FALSE}
+datatable(get_genes_by_tf)
 
-get_genes_by_tf
-get_general_frequency_genes_by_tf
-generate_graphic_points_genes_by_tfs
+
+datatable(get_general_frequency_genes_by_tfs)
+
+
+generate_graphic_points(get_general_frequency_genes_by_tfs,	cantidad, name, "genes by tf ","numbers_tfs ", "numbers_genes")
+
+#get_genes_by_tf
+#get_general_frequency_genes_by_tf
+#generate_graphic_points_genes_by_tfs
 ```
 
-###### **pie de grafica proporcionada por el curador** 
+###### **"Number of genes regulated by TFs. The graph shows the number of TFs that regulate a specific number of genes”.** 
 
 
 ####  **How many genes are regulated by each TF organized by family? / No of TF-regulated genes grouped by family (graph)**
 
 ####  **How many are regulated by each TF? / No of Tus regulated by TF (graph)**
 ```{r, warning = FALSE, echo = FALSE}
-get_tus_by_tfs
-get_general_frequency_tus_by_tfs 
-generate_graphic_points_tus_by_tfs
+datatable(get_tus_by_tfs)
+datatable(get_general_frequency_tus_by_tfs)
+generate_graphic_points_tus_by_tfs <- generate_graphic_points(get_general_frequency_tus_by_tfs,cantidad,n_tus ,"numbers tf ", "numbers tus","Number of tus regulated by tf ")
 ```
 
-###### pie de grafica proporcionada por el curador** 
+###### **“Number of TUs regulated by TFs. The graph shows the number of TFs that regulate a specific number of TUs”** 
 
 
 ####  **What is the number of tfrs per tf ?(graphs)**
@@ -92,3 +114,5 @@ generate_graphic_points_tus_by_tfs
 ####  **What is the number of RIs of each type: TF-promoter, TF-TU, TF-gene and their confidence level? (Graph and Table)**
 
 ####  **How is the distribution No of Regulators and RIs by TU/promoter/genes (activators, repressors)?(Graphic)**
+
+
