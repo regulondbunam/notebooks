@@ -20,4 +20,3 @@ get_frequency <- function(df, column_name, column_total){
     summarise({{column_total}} := n())
   return(df_frequency)
 }
-
