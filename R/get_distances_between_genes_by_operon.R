@@ -90,5 +90,10 @@ get_distances_between_genes_by_operon <- function(){
     mutate(distance = -(leftEndPosition - lag(rightEndPosition)))
 
   df <- replace(df, is.na(df), 0)
+
+  # delete rows where 'distance' = to -1189254
+  df <- df %>%
+    filter(distance != -1189254)
+
   return(df)
 }
