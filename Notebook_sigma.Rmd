@@ -1,0 +1,103 @@
+---
+#title: "Sigma Factor Overview"
+output:
+  cleanrmd::html_document_clean:
+    theme: almond
+    lib_dir: R
+---
+
+```{r, include=FALSE} 
+#Librerias a utilizar
+library(tidyverse)
+library(ghql)
+library(jsonlite)
+library(dplyr)
+library(httr)
+library(tidyr)
+library(ggplot2)
+library(DT)
+library(knitr)
+library(htmltools)
+library(htmlwidgets)
+library(rmarkdown)
+```
+
+```{r setup, include=FALSE}
+# To obtain the list of .R files in the "libs" folder
+archivos <- list.files("R", pattern = "\\.R$", full.names = TRUE)
+# To load the functions from each file
+lapply(archivos, source)
+```
+
+### **Sigma Factor Overview**
+#### Introduction
+
+```{r, include=FALSE}
+regulondb_conn <- connect_database()
+get_sigma_factor <- get_sigma_factor()
+get_number_genes_by_sigma <- get_number_genes_by_sigma()
+get_number_tfs_by_sigma <- get_number_tfs_by_sigma()
+get_number_promoters_tus_by_sigma()
+```
+
+### **Sigma Factor in E. coli**
+#### Introduction
+
+```{r,warning=FALSE, echo=FALSE}
+datatable(get_sigma_factor)
+```
+
+### Number of Regulated genes by Sigma Factor(s) (Sigmulons)
+#### Introduction
+
+```{r,warning=FALSE, echo=FALSE}
+datatable(get_number_genes_by_sigma)
+ggplot(get_number_genes_by_sigma, aes(x = `Sigma Factor Name`, y = `Number Genes`)) +
+  geom_bar(stat = "identity", fill = "#585554") +
+  geom_text(aes(label = `Number Genes`), vjust = -0.5) +
+  labs(title = "Number of Regulated genes by Sigma Factor(s) (Sigmulons)") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+###### Pie de grafica
+
+### Number of Transcription Factors Associated to Sigma Factor(s)
+#### Introduction
+
+
+```{r,warning=FALSE, echo=FALSE}
+datatable(get_number_tfs_by_sigma)
+ggplot(get_number_tfs_by_sigma, aes(x = `Sigma Factor Name`, y = `Number of Transcription Factors`)) +
+  geom_bar(stat = "identity", fill = "#585554") +
+  geom_text(aes(label = `Number of Transcription Factors`), vjust = -0.5) +
+  labs(title = "Number of Transcription Factors Associated to Sigma Factor(s)") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+###### Pie de grafica
+
+### Number of Regulated Promoters and TUs Associated to Sigma Factor(s)
+#### Introduction
+
+```{r,warning=FALSE, echo=FALSE}
+datatable(get_number_promoters_tus_by_sigma())
+
+df_promoters_tus <- get_number_promoters_tus_by_sigma()
+
+df_promoters_tus_long <- pivot_longer(df_promoters_tus, cols = c(`Number Of Regulated Promoters`, `Number TUs`), names_to = "Variable", values_to = "Count")
+
+ggplot(df_promoters_tus_long, aes(x = `Sigma Factor Name`, y = Count, fill = Variable)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8), alpha = 0.7, width = 0.4) +
+  geom_text(aes(label = Count), position = position_dodge(width = 0.8), vjust = -0.5, size = 3) +
+  labs(title = "Number of Regulated Promoters and TUs by Sigma Factor",
+       x = "Sigma Factor Name",
+       y = "Count",
+       fill = "Legend") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_fill_manual(values = c("Number Of Regulated Promoters" = "blue", "Number TUs" = "red"))
+```
+
+###### Pie de grafica
