@@ -1,0 +1,15 @@
+{
+    "__version": "0.0.1",
+    "__description": "Archivo de configuracion para controlar los notebooks que se presentan en el sitio de RegulonDB",
+    "notebooks":[
+        {
+            "name": "Sigma",
+            "description": "",
+            "rawUrl": "https://raw.githubusercontent.com/regulondbunam/notebooks/master/Notebook_sigma.html",
+            "code":{
+                "fileName":"Notebook_sigma.Rmd",
+                "rawUrl": ""
+            }
+        }
+    ]
+}
