@@ -29,9 +29,6 @@ archivos <- list.files("R", pattern = "\\.R$", full.names = TRUE)
 lapply(archivos, source)
 ```
 
-### **Sigma Factor Overview**
-#### Introduction
-
 ```{r, include=FALSE}
 regulondb_conn <- connect_database()
 get_sigma_factor <- get_sigma_factor()
@@ -40,14 +37,34 @@ get_number_tfs_by_sigma <- get_number_tfs_by_sigma()
 get_number_promoters_tus_by_sigma()
 ```
 
-### **Sigma Factor in E. coli**
+### Sigma Factor Overview
+
+In transcriptional regulation in the bacterium *Escherichia coli*, sigma factors play a crucial role in the specificity and efficiency of gene transcription. Sigma factors are subunits of the RNA polymerase enzyme that bind to the DNA promoter, initiating the process of transcription.
+
+
+### Sigma Factor in *E. coli*
+
 #### Introduction
+
+*E. coli* has several sigma factors that differ in their structure and function. The primary sigma factor in *E. coli* is sigma factor 70 (σ70), also known as sigma factor D. This sigma factor is essential for the majority of transcriptions in E. coli and is involved in the transcription of constitutive genes or genes expressed under normal conditions.
+
+In addition to sigma factor 70, E. coli also possesses other specific sigma factors that regulate gene transcription in response to specific conditions or stimuli. For instance, sigma factor 32 (σ32) regulates the expression of heat shock genes in response to heat stress, while sigma factor 28 (σ28) is involved in the regulation of gene expression in the stationary phase of bacterial growth.
+
+Sigma factors bind to specific sequences called promoters on the DNA and recruit the RNA polymerase to initiate transcription. Each sigma factor recognizes and binds to different promoter sequences, thereby enabling selective regulation of gene expression in response to specific environmental conditions or signals.
+
+In summary, sigma factors play a critical role in transcriptional regulation in *E. coli* by recognizing and binding to specific promoter sequences, which allows for precise and selective transcription of genes in response to environmental conditions and specific signals. These sigma factors are key elements in the bacterial transcription machinery and contribute to the adaptability and survival of *E. coli* under different environmental conditions.
+
 
 ```{r,warning=FALSE, echo=FALSE}
 datatable(get_sigma_factor)
 ```
 
 ### Number of Regulated genes by Sigma Factor(s) (Sigmulons)
+
+Sigmulons in E. coli are complex regulatory structures that involve the coordinated interaction of sigma factors and the expression of specific genes in response to various environmental conditions or signals. They can be defined as groups of regulons that share a common sigma factor, allowing them to coordinate their expression in response to a common regulatory factor.
+
+Each sigmulon is composed of one or more genes regulated by a specific sigma factor and a set of DNA binding sites known as consensus sequences recognized by the sigma factor. These consensus sequences are recognized and bound by the corresponding sigma factor, recruiting RNA polymerase and carrying out the transcription of the genes included in the sigmulon.
+
 #### Introduction
 
 ```{r,warning=FALSE, echo=FALSE}
@@ -60,11 +77,20 @@ ggplot(get_number_genes_by_sigma, aes(x = `Sigma Factor Name`, y = `Number Genes
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-###### Pie de grafica
+###### Number of regulated genes per sigma factor
+
 
 ### Number of Transcription Factors Associated to Sigma Factor(s)
-#### Introduction
 
+In the promoter region, besides the RNA polymerase complex with the accompanying sigma factor, other transcription factors bind to regulate gene expression. These additional factors are known as specific transcription factors and play a crucial role in the initiation and regulation of transcription in different contexts and conditions.
+
+Specific transcription factors bind to specific DNA sequences in the promoter region and can have various effects on transcription, such as activation or repression of gene expression. These transcription factors work in conjunction with RNA polymerase and the sigma factor to stimulate or repress the transcription of genes.
+
+In E. coli, numerous specific transcription factors have been identified that interact with the promoter region and contribute to the regulation of gene expression. These transcription factors can act as activators, enhancing the ability of RNA polymerase to bind to the promoter and promote the transcription of specific genes. Similarly, there are also repressor transcription factors that block or inhibit the binding of RNA polymerase to the promoter, thereby inhibiting transcription.
+
+The interaction between these specific transcription factors, RNA polymerase, and the sigma factor in the promoter region allows for precise control of gene expression in response to internal and external signals. This coordination adjusts the cell's response to different conditions, adapting to changes in the environment, and optimizing the expression of genes that are necessary at specific times.
+
+#### Introduction
 
 ```{r,warning=FALSE, echo=FALSE}
 datatable(get_number_tfs_by_sigma)
@@ -76,10 +102,15 @@ ggplot(get_number_tfs_by_sigma, aes(x = `Sigma Factor Name`, y = `Number of Tran
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-###### Pie de grafica
+###### Number of .....
 
-### Number of Regulated Promoters and TUs Associated to Sigma Factor(s)
+### Number of  Promoters and TUs Associated to Sigma Factor(s)
 #### Introduction
+
+Genes in bacteria, such as E. coli, are often grouped into transcriptional units (TU). A TU consists of multiple genes arranged consecutively on the DNA and is transcribed into a single messenger RNA (mRNA) molecule under the control of a promoter and an operator.
+
+The promoter is the region where RNA polymerase and the sigma factor complex bind to the DNA to initiate transcription. Sigma factors recognize specific sequences in the promoter and recruit RNA polymerase to initiate mRNA synthesis.
+
 
 ```{r,warning=FALSE, echo=FALSE}
 datatable(get_number_promoters_tus_by_sigma())
@@ -100,4 +131,5 @@ ggplot(df_promoters_tus_long, aes(x = `Sigma Factor Name`, y = Count, fill = Var
   scale_fill_manual(values = c("Number Of Regulated Promoters" = "blue", "Number TUs" = "red"))
 ```
 
-###### Pie de grafica
+###### Number of promoters and TUs regulated by Sigma Factor
+
