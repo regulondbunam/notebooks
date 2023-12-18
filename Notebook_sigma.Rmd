@@ -102,7 +102,7 @@ ggplot(get_number_tfs_by_sigma, aes(x = `Sigma Factor Name`, y = `Number of Tran
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-###### Number of .....
+###### 
 
 ### Number of  Promoters and TUs Associated to Sigma Factor(s)
 #### Introduction
