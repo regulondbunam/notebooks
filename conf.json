@@ -11,6 +11,15 @@
                 "fileName":"Notebook_sigma.Rmd",
                 "rawUrl": ""
             }
+        },
+        {
+            "name": "Operon",
+            "description": "",
+            "rawUrl": "https://raw.githubusercontent.com/regulondbunam/notebooks/master/notebook_operon.html",
+            "code":{
+                "fileName":"notebook_operon.Rmd",
+                "rawUrl": ""
+            }
         }
     ]
 }
