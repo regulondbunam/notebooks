@@ -1,0 +1,130 @@
+---
+#title: "notebook_gene"
+output:
+  cleanrmd::html_document_clean:
+    theme: almond
+    css: css/headings.css
+    lib_dir: R
+---
+
+```{r, include=FALSE}
+#Librerias a utilizar
+library(tidyverse)
+library(ghql)
+library(jsonlite)
+library(dplyr)
+library(httr)
+library(tidyr)
+library(ggplot2)
+library(DT)
+library(knitr)
+library(htmltools)
+library(htmlwidgets)
+library(rmarkdown)
+library(webshot2)
+```
+
+```{r setup, include=FALSE}
+# To obtain the list of .r files in the "R" folder
+archivos <- list.files("R", pattern = "\\.R$", full.names = TRUE)
+# To load the functions from each file
+lapply(archivos, source)
+
+# To obtain the list of .png files in the "images" folder
+images <- list.files("images", pattern = "\\.png$", full.names = TRUE)
+
+# To obtain the list of .csv files in the "datas" folder
+datas <- list.files("datas", pattern = "\\.csv$", full.names = TRUE)
+
+```
+```{r, include=FALSE}
+regulondb_conn <- connect_database()
+
+get_gene_general_statistics <- get_gene_general_statistics()
+capture_table_data(get_gene_general_statistics, "get_gene_general_statistics")
+capture_table_png(get_gene_general_statistics,"get_gene_general_statistics")
+
+get_calculate_gene_intervals <- get_calculate_gene_intervals()
+capture_table_data(get_calculate_gene_intervals, "get_calculate_gene_intervals")
+capture_table_png(get_calculate_gene_intervals, "get_calculate_gene_intervals")
+
+get_tfs_regulations_genes <- get_tfs_regulations_genes()
+capture_table_data(get_tfs_regulations_genes,"get_tfs_regulations_genes")
+capture_table_png(get_tfs_regulations_genes,"get_tfs_regulations_genes")
+
+```
+
+<script>
+function download_resources(fileUrl) {
+  var link = document.createElement('a');
+  link.href = fileUrl;
+
+  // Extraer el nombre del archivo de la URL para establecerlo como nombre de descarga
+  var fileName = fileUrl.split('/').pop();
+  link.download = fileName;
+  
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+</script>
+
+
+### Gene Overview Statistics
+
+DESCRIPCION Seccion de datos generales
+
+<a onclick="download_resources('images/get_gene_general_statistics.png')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Image</a>
+   
+<a onclick="download_resources('datas/get_gene_general_statistics.csv')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Data</a>
+
+```{r, warning=FALSE, echo=FALSE}
+datatable(get_gene_general_statistics, rownames = FALSE, 
+          options = list(dom = 't', ordering = FALSE, lengthMenu = list(c(-1))))
+#knitr::kable(get_gene_general_statistics)
+```
+
+### Gene Size
+
+This section displays the gene sizes in E.coli. Sizes have been calculated for each gene and tallied into size ranges, which can be seen in the table. The graph demonstrates the frequency of these size ranges.
+
+<a onclick="download_resources('images/get_calculate_gene_intervals.png')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Image</a>
+   
+<a onclick="download_resources('datas/get_calculate_gene_intervals.csv')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Data</a>
+
+```{r, warning=FALSE, echo=FALSE}
+datatable(get_calculate_gene_intervals)
+ggplot(get_calculate_gene_intervals, aes(x = `Size of Genes`, y = Total)) +
+  geom_bar(stat = "identity", fill = "#585554") +
+  geom_text(aes(label = `Total`, y = Total + 10), vjust = 0.5 , size = 3, angle = 90) +
+  labs(title = "Distribution of the gene sizes.") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.text.x = element_text(angle = 90, vjust = 0.5))
+```
+
+### Distribution of the Number of Transcription Factors Regulating Genes
+
+In E. coli, genes are regulated by transcription factors (TFs). In this section, a table is presented showing the grouped and calculated TFs according to their gene regulation. Additionally, a graph illustrates the frequency of the total TFs.
+
+<a onclick="download_resources('images/get_tfs_regulations_genes.png')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Image</a>
+   
+<a onclick="download_resources('datas/get_tfs_regulations_genes.csv')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Data</a>
+
+```{r, warning=FALSE, echo=FALSE}
+datatable(get_tfs_regulations_genes)
+ggplot(get_tfs_regulations_genes, aes(x = `Total of TFs that regulate the gene`, y = `Total of Genes`)) +
+  geom_bar(stat = "identity", fill = "#585554") +
+  geom_text(aes(label = `Total of Genes`), vjust = -0.5 , size = 3) +
+  labs(title = "Number of TF regulating the genes.") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+

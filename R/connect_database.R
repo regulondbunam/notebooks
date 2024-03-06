@@ -10,7 +10,8 @@
 
 connect_database <- function() {
   #We assign the value of url
-  url <- "http://132.248.220.219:7000/graphql"
+  # Update URL
+  url <- "https://regulondb.ccg.unam.mx/graphql"
   return(url)
 }
 
