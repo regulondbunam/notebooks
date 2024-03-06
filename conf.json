@@ -20,6 +20,15 @@
                 "fileName":"notebook_operon.Rmd",
                 "rawUrl": ""
             }
+        },
+        {
+            "name": "Genes",
+            "description": "",
+            "rawUrl": "https://raw.githubusercontent.com/regulondbunam/notebooks/master/notebook_genes.html",
+            "code":{
+                "fileName":"notebook_genes.Rmd",
+                "rawUrl": ""
+            }
         }
     ]
 }
