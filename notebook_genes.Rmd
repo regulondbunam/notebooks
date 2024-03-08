@@ -72,7 +72,9 @@ function download_resources(fileUrl) {
 
 ### Gene Overview Statistics
 
-DESCRIPCION Seccion de datos generales
+DESCRIPTION
+
+This gene overview displays some general data and distributions related to the genes stored in RegulonDB.
 
 <a onclick="download_resources('images/get_gene_general_statistics.png')" 
    style="font-style: italic; text-decoration: none; cursor: pointer;">Download Image</a>
@@ -88,7 +90,8 @@ datatable(get_gene_general_statistics, rownames = FALSE,
 
 ### Gene Size
 
-This section displays the gene sizes in E.coli. Sizes have been calculated for each gene and tallied into size ranges, which can be seen in the table. The graph demonstrates the frequency of these size ranges.
+This section elucidates the spectrum of gene sizes in *E.coli*. The sizes, calculated for each individual gene, are grouped into specific size ranges, which are detailed in the accompanying table. To provide a visual representation of these size ranges and their prevalence, a graph displaying the frequency of each range is also included.
+
 
 <a onclick="download_resources('images/get_calculate_gene_intervals.png')" 
    style="font-style: italic; text-decoration: none; cursor: pointer;">Download Image</a>
@@ -109,7 +112,7 @@ ggplot(get_calculate_gene_intervals, aes(x = `Size of Genes`, y = Total)) +
 
 ### Distribution of the Number of Transcription Factors Regulating Genes
 
-In E. coli, genes are regulated by transcription factors (TFs). In this section, a table is presented showing the grouped and calculated TFs according to their gene regulation. Additionally, a graph illustrates the frequency of the total TFs.
+At RegulonDB, we archive detailed information on gene regulation. Transcription factors (TFs) bind to the promoter region, thereby regulating the transcriptional unit, which comprises a promoter with binding sites, a set of transcribed genes, and a terminator region where the transcription process concludes. This section provides a count of how many regulators or TFs are involved in the transcription of the genes.
 
 <a onclick="download_resources('images/get_tfs_regulations_genes.png')" 
    style="font-style: italic; text-decoration: none; cursor: pointer;">Download Image</a>
