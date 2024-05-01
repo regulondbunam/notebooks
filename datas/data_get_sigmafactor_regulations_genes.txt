@@ -1,0 +1,5 @@
+"Total of Genes"	"Total of sigma factors regulating genes"
+1705	"1"
+468	"2"
+44	"3"
+6	"4"

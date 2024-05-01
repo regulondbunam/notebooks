@@ -34,26 +34,60 @@ lapply(archivos, source)
 images <- list.files("images", pattern = "\\.png$", full.names = TRUE)
 
 # To obtain the list of .csv files in the "datas" folder
-datas <- list.files("datas", pattern = "\\.csv$", full.names = TRUE)
+datas <- list.files("datas", pattern = "\\.txt$", full.names = TRUE)
 
+# To obtain the list of .png files in the "images" folder
+graphics <- list.files("graphics", pattern = "\\.png$", full.names = TRUE)
 ```
+
 ```{r, include=FALSE}
 regulondb_conn <- connect_database()
 
+# 1
 get_gene_general_statistics <- get_gene_general_statistics()
-capture_table_data(get_gene_general_statistics, "get_gene_general_statistics")
-capture_table_png(get_gene_general_statistics,"get_gene_general_statistics")
+capture_table_data(get_gene_general_statistics, "data_get_gene_general_statistics")
+capture_table_png(get_gene_general_statistics,"image_get_gene_general_statistics")
 
+# 2
 get_calculate_gene_intervals <- get_calculate_gene_intervals()
-capture_table_data(get_calculate_gene_intervals, "get_calculate_gene_intervals")
-capture_table_png(get_calculate_gene_intervals, "get_calculate_gene_intervals")
+capture_table_data(get_calculate_gene_intervals, "data_get_calculate_gene_intervals")
+capture_table_png(get_calculate_gene_intervals, "image_get_calculate_gene_intervals")
 
+# 3
 get_tfs_regulations_genes <- get_tfs_regulations_genes()
-capture_table_data(get_tfs_regulations_genes,"get_tfs_regulations_genes")
-capture_table_png(get_tfs_regulations_genes,"get_tfs_regulations_genes")
+capture_table_data(get_tfs_regulations_genes,"data_get_tfs_regulations_genes")
+capture_table_png(get_tfs_regulations_genes,"image_get_tfs_regulations_genes")
+
+# 4
+get_promoters_regulations_genes <- get_promoters_regulations_genes()
+capture_table_data(get_promoters_regulations_genes,"data_get_promoters_regulations_genes")
+capture_table_png(get_promoters_regulations_genes,"image_get_promoters_regulations_genes")
+
+get_tus_regulations_genes <- get_tus_regulations_genes()
+capture_table_data(get_tus_regulations_genes,"data_get_tus_regulations_genes")
+capture_table_png(get_tus_regulations_genes,"image_get_tus_regulations_genes")
+
+dfs_promoters_tus_genes_joined <- dfs_promoters_tus_genes_joined(
+  get_promoters_regulations_genes,"Promoters",get_tus_regulations_genes,"TUs")
+
+# 5
+get_sigmafactor_regulations_genes <- get_sigmafactor_regulations_genes()
+capture_table_data(get_sigmafactor_regulations_genes,"data_get_sigmafactor_regulations_genes")
+capture_table_png(get_sigmafactor_regulations_genes,"image_get_sigmafactor_regulations_genes")
+
+# 6
+get_class_molecularfunction_by_genes <- get_class_molecularfunction_by_genes()
+capture_table_data(get_class_molecularfunction_by_genes,"data_get_class_molecularfunction_by_genes")
+
+get_class_cellularcomponent_by_genes <- get_class_cellularcomponent_by_genes()
+capture_table_data(get_class_cellularcomponent_by_genes,"data_get_class_cellularcomponent_by_genes")
+
+get_class_biologicalprocess_by_genes <- get_class_biologicalprocess_by_genes()
+capture_table_data(get_class_biologicalprocess_by_genes,"data_get_class_biologicalprocess_by_genes")
 
 ```
 
+```{=html}
 <script>
 function download_resources(fileUrl) {
   var link = document.createElement('a');
@@ -68,18 +102,17 @@ function download_resources(fileUrl) {
   document.body.removeChild(link);
 }
 </script>
-
-
+```
 ### Gene Overview Statistics
 
 DESCRIPTION
 
 This gene overview displays some general data and distributions related to the genes stored in RegulonDB.
 
-<a onclick="download_resources('images/get_gene_general_statistics.png')" 
+<a onclick="download_resources('images/image_get_gene_general_statistics.png')" 
    style="font-style: italic; text-decoration: none; cursor: pointer;">Download Image</a>
-   
-<a onclick="download_resources('datas/get_gene_general_statistics.txt')" 
+
+<a onclick="download_resources('datas/data_get_gene_general_statistics.txt')" 
    style="font-style: italic; text-decoration: none; cursor: pointer;">Download Data</a>
 
 ```{r, warning=FALSE, echo=FALSE}
@@ -92,42 +125,242 @@ datatable(get_gene_general_statistics, rownames = FALSE,
 
 This section elucidates the spectrum of gene sizes in *E.coli*. The sizes, calculated for each individual gene, are grouped into specific size ranges, which are detailed in the accompanying table. To provide a visual representation of these size ranges and their prevalence, a graph displaying the frequency of each range is also included.
 
-
-<a onclick="download_resources('images/get_calculate_gene_intervals.png')" 
+<a onclick="download_resources('images/image_get_calculate_gene_intervals.png')" 
    style="font-style: italic; text-decoration: none; cursor: pointer;">Download Image</a>
-   
-<a onclick="download_resources('datas/get_calculate_gene_intervals.txt')" 
+
+<a onclick="download_resources('datas/data_get_calculate_gene_intervals.txt')" 
    style="font-style: italic; text-decoration: none; cursor: pointer;">Download Data</a>
 
 ```{r, warning=FALSE, echo=FALSE}
-datatable(get_calculate_gene_intervals)
-ggplot(get_calculate_gene_intervals, aes(x = `Size of Genes`, y = Total)) +
+datatable(get_calculate_gene_intervals, rownames = FALSE)
+```
+
+<a onclick="download_resources('graphics/graphic_get_calculate_gene_intervals.png')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Graphic</a>
+
+```{r, warning=FALSE, echo=FALSE}
+graphic_get_calculate_gene_intervals <- ggplot(get_calculate_gene_intervals, 
+                                               aes(x = `Size of Genes`, y = Total)) +
   geom_bar(stat = "identity", fill = "#585554") +
   geom_text(aes(label = `Total`, y = Total + 10), vjust = 0.5 , size = 3, angle = 90) +
   labs(title = "Distribution of the gene sizes.") +
   theme_classic() +
   theme(plot.title = element_text(hjust = 0.5),
         axis.text.x = element_text(angle = 90, vjust = 0.5))
+
+graphic_get_calculate_gene_intervals
+
+capture_graphic_png(graphic_get_calculate_gene_intervals,"graphic_get_calculate_gene_intervals")
 ```
 
 ### Distribution of the Number of Transcription Factors Regulating Genes
 
 At RegulonDB, we archive detailed information on gene regulation. Transcription factors (TFs) bind to the promoter region, thereby regulating the transcriptional unit, which comprises a promoter with binding sites, a set of transcribed genes, and a terminator region where the transcription process concludes. This section provides a count of how many regulators or TFs are involved in the transcription of the genes.
 
-<a onclick="download_resources('images/get_tfs_regulations_genes.png')" 
+<a onclick="download_resources('images/image_get_tfs_regulations_genes.png')" 
    style="font-style: italic; text-decoration: none; cursor: pointer;">Download Image</a>
-   
-<a onclick="download_resources('datas/get_tfs_regulations_genes.txt')" 
+
+<a onclick="download_resources('datas/data_get_tfs_regulations_genes.txt')" 
    style="font-style: italic; text-decoration: none; cursor: pointer;">Download Data</a>
 
 ```{r, warning=FALSE, echo=FALSE}
-datatable(get_tfs_regulations_genes)
-ggplot(get_tfs_regulations_genes, aes(x = `Total of TFs that regulate the gene`, y = `Total of Genes`)) +
+datatable(get_tfs_regulations_genes, rownames = FALSE)
+```
+
+<a onclick="download_resources('graphics/graphic_get_tfs_regulations_genes.png')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Graphic</a>
+
+```{r, warning=FALSE, echo=FALSE}
+graphic_get_tfs_regulations_genes <- ggplot(get_tfs_regulations_genes, 
+                                            aes(x = `Total of TFs that regulate the gene`, 
+                                                y = `Total of Genes`)) +
   geom_bar(stat = "identity", fill = "#585554") +
   geom_text(aes(label = `Total of Genes`), vjust = -0.5 , size = 3) +
-  labs(title = "Number of TF regulating the genes.") +
+  labs(title = "Number of TFs regulating the genes.") +
   theme_classic() +
   theme(plot.title = element_text(hjust = 0.5))
+
+graphic_get_tfs_regulations_genes
+
+capture_graphic_png(graphic_get_tfs_regulations_genes,"graphic_get_tfs_regulations_genes")
+```
+
+### Distribution of the Number of TUs and Promoters by Gene
+
+DESCRIPTION \*\*
+
+#### Distribution of Total promoters per gene
+
+<a onclick="download_resources('images/image_get_promoters_regulations_genes.png')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Image</a>
+
+<a onclick="download_resources('datas/data_get_promoters_regulations_genes.txt')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Data</a>
+
+```{r, warning=FALSE, echo=FALSE}
+datatable(get_promoters_regulations_genes, rownames = FALSE, 
+          options = list(dom = 't', ordering = FALSE, lengthMenu = list(c(-1)),
+                         columnDefs = list( list(targets = "_all", className = "dt-center"))))
+```
+
+#### Distribution of Total Transcription Units (TUs) per gene.
+
+<a onclick="download_resources('images/image_get_tus_regulations_genes.png')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Image</a>
+
+<a onclick="download_resources('datas/data_get_tus_regulations_genes.txt')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Data</a>
+
+```{r, warning=FALSE, echo=FALSE}
+datatable(get_tus_regulations_genes, rownames = FALSE, 
+          options = list(dom = 't', ordering = FALSE, lengthMenu = list(c(-1)),
+                         columnDefs = list( list(targets = "_all", className = "dt-center"))))
+```
+
+<a onclick="download_resources('graphics/graphic_dfs_promoters_tus_genes_joined.png')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Graphic</a>
+
+```{r, warning=FALSE, echo=FALSE}
+graphic_dfs_promoters_tus_genes_joined <- ggplot(dfs_promoters_tus_genes_joined, 
+                                                 aes(x = Number, 
+                                                     y = `Total of Genes`, 
+                                                     color = factor(Type))) +
+  ggtitle( "Distribution of Genes Regulated by Number of Promoters and TUs.") +
+  xlab("Total Number of Promoters and TUs") +
+  ylab("Total Number of Genes") +
+  geom_line() +
+  scale_color_manual(values = c("Promoters" = "blue", "TUs" = "red"), name = "Type") +
+  scale_x_continuous(breaks = seq(0, max(dfs_promoters_tus_genes_joined$Number), by = 1)) +
+  theme_minimal()+
+  theme(plot.background = element_rect(fill = "white", color = "white"))
+
+graphic_dfs_promoters_tus_genes_joined
+
+capture_graphic_png(graphic_dfs_promoters_tus_genes_joined,"graphic_dfs_promoters_tus_genes_joined")
+```
+
+### Distribution of Sigma Factor Regulatory Genes
+
+DESCRIPTION **
+
+<a onclick="download_resources('images/image_get_sigmafactor_regulations_genes.png')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Image</a>
+
+<a onclick="download_resources('datas/data_get_sigmafactor_regulations_genes.txt')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Data</a>
+
+```{r, warning=FALSE, echo=FALSE}
+datatable(get_sigmafactor_regulations_genes, rownames = FALSE,
+          options = list(dom = 't', ordering = FALSE, lengthMenu = list(c(-1)),
+                         columnDefs = list( list(targets = "_all", className = "dt-center"))))
+```
+
+<a onclick="download_resources('graphics/graphic_get_sigmafactor_regulations_genes.png')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Graphic</a>
+
+```{r, warning=FALSE, echo=FALSE}
+graphic_get_sigmafactor_regulations_genes <- ggplot(get_sigmafactor_regulations_genes, 
+                                                    aes(x = `Total of sigma factors regulating genes`, 
+                                                        y = `Total of Genes`)) +
+  geom_bar(stat = "identity", fill = "#585554") +
+  geom_text(aes(label = `Total of Genes`), vjust = -0.5 , size = 3) +
+  labs(title = "Total of Sigma Factors regulating the genes.") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+graphic_get_sigmafactor_regulations_genes
+
+capture_graphic_png(graphic_get_sigmafactor_regulations_genes,"graphic_get_sigmafactor_regulations_genes")
 ```
 
 
+### Distribution of the Number of Functional Classes by Gene
+
+DESCRIPTION \*\*
+
+#### Table of Number of Molecular Function Classes by Gene
+
+<a onclick="download_resources('datas/data_get_class_molecularfunction_by_genes.txt')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Data</a>
+
+```{r, warning=FALSE, echo=FALSE}
+datatable(get_class_molecularfunction_by_genes, rownames = FALSE)
+```
+
+<a onclick="download_resources('graphics/graphic_get_class_molecularfunction_by_genes.png')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Graphic</a>
+
+```{r, warning=FALSE, echo=FALSE}
+graphic_get_class_molecularfunction_by_genes <- ggplot(get_class_molecularfunction_by_genes, 
+                                                       aes(x = `Class Molecular Function`, 
+                                                           y = `Total of Genes`)) +
+  geom_bar(stat = "identity", fill = "#585554") +
+  labs(title = "Distribution of Molecular Function Class.") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.line.y = element_blank())
+
+graphic_get_class_molecularfunction_by_genes
+
+capture_graphic_png(graphic_get_class_molecularfunction_by_genes,"graphic_get_class_molecularfunction_by_genes")
+```
+
+#### Table of Number of Cellular Component Classes by Gene
+
+<a onclick="download_resources('datas/data_get_class_cellularcomponent_by_genes.txt')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Data</a>
+
+```{r, warning=FALSE, echo=FALSE}
+datatable(get_class_cellularcomponent_by_genes, rownames = FALSE)
+```
+
+<a onclick="download_resources('graphics/graphic_get_class_cellularcomponent_by_genes.png')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Graphic</a>
+
+```{r, warning=FALSE, echo=FALSE}
+graphic_get_class_cellularcomponent_by_genes <- ggplot(get_class_cellularcomponent_by_genes, 
+                                                       aes(x = `Class Cellular Component`, 
+                                                           y = `Total of Genes`)) +
+  geom_bar(stat = "identity", fill = "#585554") + 
+  labs(title = "Distribution of Cellular Component Class.") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.line.y = element_blank())
+
+graphic_get_class_cellularcomponent_by_genes
+
+capture_graphic_png(graphic_get_class_cellularcomponent_by_genes,"graphic_get_class_cellularcomponent_by_genes")
+```
+
+#### Table of Number of Biological Processes by Gene
+
+<a onclick="download_resources('datas/data_get_class_biologicalprocess_by_genes.txt')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Data</a>
+
+```{r, warning=FALSE, echo=FALSE}
+datatable(get_class_biologicalprocess_by_genes, rownames = FALSE)
+```
+
+<a onclick="download_resources('graphics/graphic_get_class_biologicalprocess_by_genes.png')" 
+   style="font-style: italic; text-decoration: none; cursor: pointer;">Download Graphic</a>
+
+```{r, warning=FALSE, echo=FALSE}
+graphic_get_class_biologicalprocess_by_genes <- ggplot(get_class_biologicalprocess_by_genes, 
+                                                       aes(x = `Class Biological Process`, 
+                                                           y = `Total of Genes`)) +
+  geom_bar(stat = "identity", fill = "#585554") +
+  labs(title = "Distribution of Biological Process.") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.line.y = element_blank())
+
+graphic_get_class_biologicalprocess_by_genes
+
+capture_graphic_png(graphic_get_class_biologicalprocess_by_genes,"graphic_get_class_biologicalprocess_by_genes")
+```

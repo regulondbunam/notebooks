@@ -48,16 +48,14 @@ get_tfs_regulations_genes <- function(){
   
   # Removing NULL values and 0s
   df_statistics_clean <- df_statistics %>%
-    filter(!is.na(regulators) & regulators != 0) # Result: 4,497 NULL - 1,741 0s = 2,756
-  
-  #Note: A maximum of 24 TFs regulate a gene at the moment.
+    filter(!is.na(regulators) & regulators != 0)
   
   # Creating a new table with the name of the regulator, count and names of associated genes
   df_count_regulators <- df_statistics_clean %>%
     group_by(regulators) %>%
     summarise(count_regulators = n())
   
-  # Convert the column "Total of tFs that regulate the gene" to string type
+  # Convert the column "regulators" to string type
   df_count_regulators$regulators <- as.character(df_count_regulators$regulators)
   
   # Renaming the column headers and reordering columns
@@ -66,7 +64,7 @@ get_tfs_regulations_genes <- function(){
            `Total of Genes` = count_regulators) %>%
     select(`Total of Genes`, `Total of TFs that regulate the gene`)
   
-  # Convert the column "Total of tFs that regulate the gene" to a factor with the desired order.
+  # Convert the column "Total of TFs that regulate the gene" to a factor with the desired order.
   df_count_regulators$`Total of TFs that regulate the gene` <- 
     factor(df_count_regulators$`Total of TFs that regulate the gene`,
            levels = unique(df_count_regulators$`Total of TFs that regulate the gene`))

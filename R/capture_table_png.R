@@ -5,20 +5,23 @@
 #' height for the header. The resulting image is saved in the "images" directory with the
 #' specified name.
 #'
-#' @param df The DataFrame
+#' @param df The DataFrame.
 #' @param name The name used to save the file.
-#' @return Nothing (the function saves the PNG image)
+#' @return Nothing. The function saves the PNG image.
 #' @author Emanuel Pacheco Alberto
 #' @examples
 #' capture_table_png(get_gene_general_statistics(), "gene_statistics")
 #' 
 capture_table_png <- function(df, name) {
   
+  # Get the name of the dataframe
+  df_name <- deparse(substitute(df))
+  
   # Get the number of rows in the dataframe
   num_rows <- nrow(df)
   
   # Calculate the total height of the table including header and additional padding
-  total_height <- num_rows * 34.4 + 39.2 + 45
+  total_height <- (num_rows * 35) + 47 + 8
   
   # Round the total height
   vheight <- round(total_height)
@@ -26,10 +29,32 @@ capture_table_png <- function(df, name) {
   # Create the file name for HTML and PNG
   file_name <- paste0("images/", name)
   
-  # Create the DataTable
-  dt <- datatable(df, rownames = FALSE, 
-                  options = list(dom = 't', ordering = FALSE, 
-                                 lengthMenu = list(c(-1))))
+  # Define the list of dataframe names for comparison
+  special_dfs <- c("get_promoters_regulations_genes", "get_tus_regulations_genes",
+                   "get_sigmafactor_regulations_genes")
+  
+  # Check if the dataframe name is in the list of special dataframes
+  if (df_name %in% special_dfs) {
+    # Create the DataTable with special options
+    dt_options <- list(
+      dom = 't',
+      ordering = FALSE,
+      lengthMenu = list(c(-1)),
+      columnDefs = list(
+        list(targets = "_all", className = "dt-center")
+      )
+    )
+  } else {
+    # Create the DataTable with default options
+    dt_options <- list(
+      dom = 't',
+      ordering = FALSE,
+      lengthMenu = list(c(-1))
+    )
+  }
+  
+  # Create the DataTable with the selected options
+  dt <- datatable(df, rownames = FALSE, options = dt_options)
   
   # Save the DataTable as an HTML file
   htmltools::save_html(dt, file = paste0(file_name, ".html"))
@@ -40,3 +65,4 @@ capture_table_png <- function(df, name) {
                     cliprect = "viewport", vwidth = 992, vheight = vheight)
   
 }
+
