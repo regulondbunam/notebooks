@@ -1,56 +1,57 @@
 "Class Cellular Component"	"Total of Genes"
-"GO:0005829 - cytosol"	2540
-"GO:0016020 - membrane"	1482
-"GO:0005886 - plasma membrane"	1311
-"GO:0005737 - cytoplasm"	1067
+"GO:0005829 - cytosol"	2545
+"GO:0016020 - membrane"	1496
+"GO:0005886 - plasma membrane"	1326
+"GO:0005737 - cytoplasm"	1082
 "GO:0030288 - outer membrane-bounded periplasmic space"	299
-"GO:0042597 - periplasmic space"	184
-"GO:0055052 - ATP-binding cassette (ABC) transporter complex, substrate-binding subunit-containing"	149
-"GO:0009279 - cell outer membrane"	138
-"GO:0043190 - ATP-binding cassette (ABC) transporter complex"	130
-"GO:0032991 - protein-containing complex"	91
-"GO:0005576 - extracellular region"	61
+"GO:0042597 - periplasmic space"	186
+"GO:0055052 - ATP-binding cassette (ABC) transporter complex, substrate-binding subunit-containing"	150
+"GO:0009279 - cell outer membrane"	143
+"GO:0043190 - ATP-binding cassette (ABC) transporter complex"	131
+"GO:0032991 - protein-containing complex"	92
+"GO:0005576 - extracellular region"	69
 "GO:0005840 - ribosome"	59
 "GO:1990904 - ribonucleoprotein complex"	58
 "GO:0032993 - protein-DNA complex"	48
 "GO:0022625 - cytosolic large ribosomal subunit"	47
 "GO:1902495 - transmembrane transporter complex"	43
 "GO:0009289 - pilus"	37
+"GO:0019867 - outer membrane"	34
 "GO:0032153 - cell division site"	34
-"GO:0019867 - outer membrane"	33
 "GO:0009288 - bacterial-type flagellum"	31
 "GO:0022627 - cytosolic small ribosomal subunit"	30
-"GO:0110165 - cellular anatomical entity"	27
 "GO:0110001 - toxin-antitoxin complex"	24
 "GO:0009898 - cytoplasmic side of plasma membrane"	22
-"GO:0009326 - formate dehydrogenase complex"	19
+"GO:0009326 - formate dehydrogenase complex"	20
+"GO:1990204 - oxidoreductase complex"	20
+"GO:0046930 - pore complex"	19
 "GO:0009425 - bacterial-type flagellum basal body"	18
-"GO:0046930 - pore complex"	18
+"GO:0045272 - plasma membrane respiratory chain complex I"	17
+"GO:0098797 - plasma membrane protein complex"	17
 "GO:0009295 - nucleoid"	16
 "GO:0043590 - bacterial nucleoid"	16
-"GO:0045272 - plasma membrane respiratory chain complex I"	16
 "GO:0098567 - periplasmic side of plasma membrane"	16
 "GO:0030894 - replisome"	15
 "GO:0044569 - [Ni-Fe] hydrogenase complex"	15
 "GO:0005667 - transcription regulator complex"	14
 "GO:0015627 - type II protein secretion system complex"	14
 "GO:0030964 - NADH dehydrogenase complex"	14
+"GO:0043229 - intracellular organelle"	14
 "GO:1990281 - efflux pump complex"	14
 "GO:0031469 - bacterial microcompartment"	13
 "GO:0045271 - respiratory chain complex I"	13
+"GO:1902494 - catalytic complex"	12
 "GO:1990586 - divisome complex"	12
 "GO:0000345 - cytosolic DNA-directed RNA polymerase complex"	11
 "GO:0015935 - small ribosomal subunit"	11
 "GO:0060187 - cell pole"	11
-"GO:0098797 - plasma membrane protein complex"	11
 "GO:0015934 - large ribosomal subunit"	10
-"GO:1902494 - catalytic complex"	10
 "GO:1990228 - sulfurtransferase complex"	10
 "GO:1990351 - transporter complex"	10
+"GO:0005694 - chromosome"	9
 "GO:0009360 - DNA polymerase III complex"	9
 "GO:0030257 - type III protein secretion system complex"	9
 "GO:0120102 - bacterial-type flagellum secretion apparatus"	9
-"GO:0005694 - chromosome"	8
 "GO:0008023 - transcription elongation factor complex"	8
 "GO:0009276 - Gram-negative-bacterium-type cell wall"	8
 "GO:0009325 - nitrate reductase complex"	8
@@ -58,24 +59,25 @@
 "GO:0045259 - proton-transporting ATP synthase complex"	8
 "GO:1903103 - potassium:proton antiporter complex"	8
 "GO:1990077 - primosome complex"	8
-"GO:1990204 - oxidoreductase complex"	8
-"GO:0043229 - intracellular organelle"	7
+"GO:0005948 - acetolactate synthase complex"	7
 "GO:0098561 - methyl accepting chemotaxis protein complex"	7
 "GO:0110142 - ubiquinone biosynthesis complex"	7
 "GO:1903865 - sigma factor antagonist complex"	7
 "GO:0000428 - DNA-directed RNA polymerase complex"	6
 "GO:0000935 - division septum"	6
-"GO:0005948 - acetolactate synthase complex"	6
+"GO:0005615 - extracellular space"	6
 "GO:0031471 - ethanolamine degradation polyhedral organelle"	6
 "GO:0043846 - DNA polymerase III, clamp loader complex"	6
 "GO:0045261 - proton-transporting ATP synthase complex, catalytic core F(1)"	6
 "GO:0061694 - alpha-D-ribose 1-methylphosphonate 5-triphosphate synthase complex"	6
 "GO:0070069 - cytochrome complex"	6
+"GO:0071944 - cell periphery"	6
 "GO:1904176 - carbon phosphorus lyase complex"	6
 "GO:1990229 - iron-sulfur cluster assembly complex"	6
 "GO:0009331 - glycerol-3-phosphate dehydrogenase complex"	5
 "GO:0009376 - HslUV protease complex"	5
 "GO:0009424 - bacterial-type flagellum hook"	5
+"GO:0030313 - cell envelope"	5
 "GO:0030428 - cell septum"	5
 "GO:0030694 - bacterial-type flagellum basal body, rod"	5
 "GO:0031241 - periplasmic side of cell outer membrane"	5
@@ -84,6 +86,7 @@
 "GO:1990063 - Bam protein complex"	5
 "GO:1990158 - DnaB-DnaC-DnaT-PriA-PriB complex"	5
 "GO:1990159 - DnaB-DnaC-DnaT-PriA-PriC complex"	5
+"GO:0005856 - cytoskeleton"	4
 "GO:0005960 - glycine cleavage complex"	4
 "GO:0005971 - ribonucleoside-diphosphate reductase complex"	4
 "GO:0009317 - acetyl-CoA carboxylase complex"	4
@@ -95,8 +98,8 @@
 "GO:0009390 - dimethyl sulfoxide reductase complex"	4
 "GO:0009433 - bacterial-type flagellum basal body, C ring"	4
 "GO:0009986 - cell surface"	4
+"GO:0017101 - aminoacyl-tRNA synthetase multienzyme complex"	4
 "GO:0019898 - extrinsic component of membrane"	4
-"GO:0030313 - cell envelope"	4
 "GO:0031004 - potassium ion-transporting ATPase complex"	4
 "GO:0033281 - TAT protein transport complex"	4
 "GO:0036125 - fatty acid beta-oxidation multienzyme complex"	4
@@ -117,7 +120,6 @@
 "GO:0000408 - EKC/KEOPS complex"	3
 "GO:0000796 - condensin complex"	3
 "GO:0002197 - xanthine dehydrogenase complex"	3
-"GO:0005856 - cytoskeleton"	3
 "GO:0009274 - peptidoglycan-based cell wall"	3
 "GO:0009338 - exodeoxyribonuclease V complex"	3
 "GO:0009346 - ATP-independent citrate lyase complex"	3
@@ -132,6 +134,7 @@
 "GO:0031317 - tripartite ATP-independent periplasmic transporter complex"	3
 "GO:0032045 - guanyl-nucleotide exchange factor complex"	3
 "GO:0032300 - mismatch repair complex"	3
+"GO:0043231 - intracellular membrane-bounded organelle"	3
 "GO:0044776 - DNA polymerase III, core complex"	3
 "GO:0044799 - NarGHI complex"	3
 "GO:0045252 - oxoglutarate dehydrogenase complex"	3
@@ -149,7 +152,9 @@
 "GO:1990222 - ProVWX complex"	3
 "GO:1990234 - transferase complex"	3
 "GO:1990587 - FtsQBL complex"	3
+"GO:0000932 - P-body"	2
 "GO:0002144 - cytosolic tRNA wobble base thiouridylase complex"	2
+"GO:0005773 - vacuole"	2
 "GO:0005950 - anthranilate synthase complex"	2
 "GO:0005951 - carbamoyl-phosphate synthase complex"	2
 "GO:0009316 - 3-isopropylmalate dehydratase complex"	2
@@ -177,8 +182,7 @@
 "GO:0033644 - host cell membrane"	2
 "GO:0034702 - monoatomic ion channel complex"	2
 "GO:0036411 - H-NS-Cnu complex"	2
-"GO:0042788 - polysomal ribosome"	2
-"GO:0045250 - cytosolic pyruvate dehydrogenase complex"	2
+"GO:0044384 - host outer membrane"	2
 "GO:0055051 - ATP-binding cassette (ABC) transporter complex, integrated substrate binding"	2
 "GO:0070469 - respirasome"	2
 "GO:0097347 - TAM protein secretion complex"	2
@@ -209,14 +213,15 @@
 "GO:1990330 - IscS-IscU complex"	2
 "GO:1990588 - FtsBL complex"	2
 "GO:0000015 - phosphopyruvate hydratase complex"	1
+"GO:0000177 - cytoplasmic exosome (RNase complex)"	1
 "GO:0000786 - nucleosome"	1
 "GO:0000791 - euchromatin"	1
 "GO:0002189 - ribose phosphate diphosphokinase complex"	1
-"GO:0005615 - extracellular space"	1
-"GO:0005777 - peroxisome"	1
-"GO:0005793 - endoplasmic reticulum-Golgi intermediate compartment"	1
+"GO:0005764 - lysosome"	1
 "GO:0005839 - proteasome core complex"	1
+"GO:0005891 - voltage-gated calcium channel complex"	1
 "GO:0005945 - 6-phosphofructokinase complex"	1
+"GO:0005946 - alpha,alpha-trehalose-phosphate synthase complex (UDP-forming)"	1
 "GO:0009339 - glycolate oxidase complex"	1
 "GO:0009349 - riboflavin synthase complex"	1
 "GO:0009358 - polyphosphate kinase complex"	1
@@ -226,13 +231,18 @@
 "GO:0009427 - bacterial-type flagellum basal body, distal rod, L ring"	1
 "GO:0009428 - bacterial-type flagellum basal body, distal rod, P ring"	1
 "GO:0009431 - bacterial-type flagellum basal body, MS ring"	1
+"GO:0009514 - glyoxysome"	1
+"GO:0009897 - external side of plasma membrane"	1
 "GO:0010170 - glucose-1-phosphate adenylyltransferase complex"	1
 "GO:0016234 - inclusion body"	1
 "GO:0017053 - transcription repressor complex"	1
+"GO:0017102 - methionyl glutamyl tRNA synthetase complex"	1
 "GO:0019008 - molybdopterin synthase complex"	1
 "GO:0019866 - organelle inner membrane"	1
 "GO:0020002 - host cell plasma membrane"	1
 "GO:0022626 - cytosolic ribosome"	1
+"GO:0030008 - TRAPP complex"	1
+"GO:0030686 - 90S preribosome"	1
 "GO:0030880 - RNA polymerase complex"	1
 "GO:0031240 - external side of cell outer membrane"	1
 "GO:0032299 - ribonuclease H2 complex"	1
@@ -240,19 +250,20 @@
 "GO:0033573 - high-affinity iron permease complex"	1
 "GO:0034707 - chloride channel complex"	1
 "GO:0042709 - succinate-CoA ligase complex"	1
-"GO:0043231 - intracellular membrane-bounded organelle"	1
 "GO:0043527 - tRNA methyltransferase complex"	1
 "GO:0043597 - cytoplasmic replication fork"	1
 "GO:0043600 - cytoplasmic replisome"	1
 "GO:0044096 - type IV pilus"	1
-"GO:0044384 - host outer membrane"	1
 "GO:0044777 - single-stranded DNA-binding protein complex"	1
+"GO:0044853 - plasma membrane raft"	1
 "GO:0045121 - membrane raft"	1
 "GO:0045239 - tricarboxylic acid cycle enzyme complex"	1
-"GO:0045248 - cytosolic oxoglutarate dehydrogenase complex"	1
 "GO:0045282 - plasma membrane succinate dehydrogenase complex"	1
+"GO:0048269 - methionine adenosyltransferase complex"	1
+"GO:0048471 - perinuclear region of cytoplasm"	1
 "GO:0048500 - signal recognition particle"	1
 "GO:0048501 - signal recognition particle, plasma membrane targeting"	1
+"GO:0051285 - cell cortex of cell tip"	1
 "GO:0071513 - phosphopantothenoylcysteine decarboxylase complex"	1
 "GO:0097047 - DNA replication termination region"	1
 "GO:0097268 - cytoophidium"	1

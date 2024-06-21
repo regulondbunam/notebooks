@@ -11,8 +11,7 @@
 connect_database <- function() {
   #We assign the value of url
   # Update URL
-  #url <- "https://regulondb.ccg.unam.mx/graphql"
-  url <- "https://regulondb-prerelease.ccg.unam.mx/graphql"
+  url <- "https://regulondb.ccg.unam.mx/graphql"
   return(url)
 }
 
